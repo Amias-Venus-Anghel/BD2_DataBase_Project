@@ -1,0 +1,168 @@
+DROP TABLE IF EXISTS Jocuri_masa;
+DROP TABLE IF EXISTS Jocuri_pc;
+DROP TABLE IF EXISTS Jocuri;
+DROP TABLE IF EXISTS Producator;
+DROP TABLE IF EXISTS Numar_jucatori;
+
+CREATE TABLE Numar_jucatori (
+  id_nr_jucatori INT PRIMARY KEY,
+  min INT,
+  max INT
+);
+
+CREATE TABLE Producator (
+  id_prod INT PRIMARY KEY,
+  nume VARCHAR(255),
+  locatie VARCHAR(255),
+  mail VARCHAR(255)
+);
+
+CREATE TABLE Jocuri (
+  id_joc INT PRIMARY KEY,
+  nume VARCHAR(255),
+  id_prod INT,
+  pret INT,
+  rating INT,
+  numar_vanzari INT,
+FOREIGN KEY (id_prod) REFERENCES Producator(id_prod)
+);
+
+CREATE TABLE Jocuri_pc ( 
+  id_joc INT PRIMARY KEY, 
+  gen VARCHAR(255),  
+  status VARCHAR(255)
+); 
+
+CREATE TABLE Jocuri_masa (
+  id_joc INT PRIMARY KEY,
+  id_nr_jucatori INT,
+  durata_joc INT,
+  limba VARCHAR(255),
+  varsta_min_rec INT,
+  exemplare_disponibile INT,
+  FOREIGN KEY (id_nr_jucatori) REFERENCES Numar_jucatori(id_nr_jucatori)
+);
+
+INSERT INTO Numar_jucatori (id_nr_jucatori, min, max)
+VALUES
+(25,2,5),
+(15,1,5),
+(16,1,6),
+(24,2,4),
+(14,1,4),
+(26,2,6),
+(20,2,10),
+(30,3,10);
+
+INSERT INTO Producator (id_prod, nume, locatie, mail)
+VALUES
+(200, 'Exploding_Kittens', 'USA' , 'Exploding_Kittens@mail.com'),
+(201, 'Czech_Games_Edition', 'Prague' , 'Czech_Games_Edition@mail.com'),
+(202, 'Pegasus_Spiele', 'Germany' , 'Pegasus_Spiele@mail.com'),
+(203, 'Lookout_Games', 'Germany' , 'Lookout_Games@mail.com'),
+(204, 'Huch!', 'Germany' , 'Huch!@mail.com'),
+(205, 'Mattel', 'USA' , 'Mattel@mail.com'),
+(206, 'Cards_Against_Humanity', 'USA' , 'Cards_Against_Humanity@mail.com'),
+(207, 'Carcassonne', 'France' , 'Carcassonne@mail.com'),
+(208, 'Piatnik', 'Austria' , 'Piatnik@mail.com'),
+(209, 'Larian_Studios', 'Belgium' , 'Larian_Studios@mail.com'),
+(210, 'FromSoftware', 'Jaoan' , 'FromSoftware@mail.com'),
+(211, 'Electronic_Arts', 'Romania' , 'Electronic_Arts@mail.com'),
+(212, 'Capcom', 'Japan' , 'Capcom@mail.com'),
+(213, 'SCS_Software', 'Czech Republic' , 'SCS_Software@mail.com'),
+(214, 'Behaviour_Interactive', 'USA' , 'Behaviour_Interactive@mail.com'),
+(215, 'MINTROCKET', 'South Korea' , 'MINTROCKET@mail.com'),
+(216, 'Axolot_Games', 'Sweden' , 'Axolot_Games@mail.com'),
+(217, 'Studio_Wildcard', 'USA' , 'Studio_Wildcard@mail.com'),
+(218, 'Ludeon_Studios', 'Canada' , 'Ludeon_Studios@mail.com'),
+(219, 'Frozen_District', 'Poland' , 'Frozen_District@mail.com'),
+(220, 'TUNIC_Team', 'Poland' , 'TUNIC_Team@mail.com'),
+(221, 'Jaspel', 'USA' , 'Jaspel@mail.com');
+
+INSERT INTO Jocuri (id_joc, nume, id_prod, pret, rating, numar_vanzari)
+VALUES
+(100, 'Exploding Kittens(Pink Edition)',200,123,4,7646),
+(101, 'Space Alert - The New Frontier',201,142,3,9111),
+(102, 'Zombie Kittens',200,103,5,3393),
+(103, 'Dorfromantik',202,227,3,2692),
+(104, 'First Rat',202,209,4,4399),
+(105, 'AquaSphere',202,189,2,4220),
+(106, 'Forest Shuffle',203,154,7,5188),
+(107, 'Turing Machine',204,208,6,1432),
+(108, 'Keyflower: The Farmers',204,129,8,7250),
+(109, 'Joc Uno All Wild',205,50,9,8938),
+(110, 'Joc Uno Flip Side',205,43,5,5038),
+(111, 'Uno Clasic',205,53,8,8316),
+(112, 'Toy Story 4 Uno',205,63,5,2714),
+(113, 'What Do You Meme?',204,143,10,3782),
+(114, 'What Do You Meme - TikTok Edition',204,145,6,2051),
+(115, 'Cards Against Humanity - Family Edition',206,125,7,3273),
+(116, 'Cards Against Humanity - Red Box',206,149,9,7981),
+(117, 'Cards Against Humanity',206,150,10,8488),
+(118, 'Carcassonne',207,141,10,1855),
+(119, 'Carcassonne Mini',207,25,5,4199),
+(120, 'Activity Original',208,155,7,2318),
+(121, 'Saboteur',208,66,7,2272),
+(122, 'Baldurs Gate 3',209,270,9,2382),
+(123, 'ELDEN RING',210,178,5,7251),
+(124, 'EA SPORTS FC',211,139,7,6266),
+(125, 'The Sims 4',211,68,4,4312),
+(126, 'Resident Evil 4',212,149,5,8715),
+(127, 'Euro Truck Simulator 2',213,25,3,8313),
+(128, 'It Takes Two',211,50,7,9022),
+(129, 'Dead by Daylight',214,35,10,7516),
+(130, 'DAVE THE DIVER',215,80,4,7368),
+(131, 'Raft',216,67,6,4143),
+(132, 'ARK: Survival Ascended',217,201,7,3795),
+(133, 'RimWorld',218,127,10,7187),
+(134, 'House Flipper 2',219,167,6,7964),
+(135, 'TUNIC',220,100,5,7091),
+(136, 'House Flipper',219,121,7,6463),
+(137, 'The Constructors',219,167,2,5092),
+(138, 'Backpack Hero',221,75,8,13868);
+
+INSERT INTO Jocuri_pc (id_joc, gen, status)
+VALUES
+(122, 'rpg', 'singleplayer'),
+(123, 'rpg', 'singleplayer'),
+(124, 'competitiv', 'multiplayer'),
+(125, 'simulator', 'singleplayer'),
+(126, 'horror', 'singleplayer'),
+(127, 'simulator', 'singleplayer'),
+(128, 'puzzle', 'multiplayer'),
+(129, 'horror', 'multiplayer'),
+(130, 'adventure', 'singleplayer'),
+(131, 'survival', 'singleplayer'),
+(132, 'survival', 'multiplayer'),
+(133, 'simulator', 'singleplayer'),
+(134, 'simulator', 'singleplayer'),
+(135, 'adventure', 'singleplayer'),
+(136, 'simulator', 'singleplayer'),
+(137, 'simulator', 'singleplayer'),
+(138, 'adventure', 'singleplayer');
+
+INSERT INTO Jocuri_masa (id_joc, id_nr_jucatori, durata_joc, limba, varsta_min_rec, exemplare_disponibile)
+VALUES
+(100,25,30, 'engleza' ,18,74),
+(101,15,30, 'engleza' ,14,6),
+(102,25,15, 'romana' ,8,3),
+(103,16,60, 'engleza' ,6,82),
+(104,15,90, 'engleza' ,10,95),
+(105,24,120, 'romana' ,12,75),
+(106,24,60, 'engleza' ,14,72),
+(107,14,30, 'engleza' ,14,91),
+(108,26,90, 'romana' ,12,44),
+(109,20,30, 'romana' ,10,14),
+(110,20,30, 'romana' ,10,31),
+(111,20,30, 'romana' ,8,9),
+(112,20,30, 'engleza' ,8,41),
+(113,26,90, 'engleza' ,18,95),
+(114,26,90, 'engleza' ,18,79),
+(115,20,90, 'engleza' ,10,85),
+(116,20,90, 'engleza' ,18,54),
+(117,20,90, 'engleza' ,18,98),
+(118,15,60, 'romana' ,8,7),
+(119,16,90, 'engleza' ,8,43),
+(120,30,60, 'romana' ,12,96),
+(121,30,30, 'romana' ,8,59);
+

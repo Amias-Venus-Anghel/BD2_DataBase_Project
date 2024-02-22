@@ -1,0 +1,24 @@
+DELIMITER //
+
+CREATE PROCEDURE SoloGamesFromProducer()
+BEGIN
+	select p.nume, solocount.count
+	from producator p join
+		(select count(*) count, j.id_prod
+		from jocuri_pc jpc
+		join jocuri j on j.id_joc = jpc.id_joc
+		where jpc.status = 'singleplayer'
+		group by j.id_prod
+		union
+		select count(*) count,  j.id_prod
+		from jocuri_masa jm
+		join jocuri j on j.id_joc = jm.id_joc
+		where jm.id_nr_jucatori in
+			(select id_nr_jucatori
+			from numar_jucatori
+			where min = 1)
+		group by j.id_prod) solocount on solocount.id_prod = p.id_prod
+		order by solocount.count desc;
+END //
+
+DELIMITER ;

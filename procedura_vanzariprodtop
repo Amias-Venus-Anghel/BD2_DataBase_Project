@@ -1,0 +1,19 @@
+DELIMITER //
+
+CREATE PROCEDURE VanzariProducatoriTop(In rating_min INT)
+BEGIN
+	select jpc.gen, p.nume as producator, SUM(j.numar_vanzari) as vanzari
+	from Jocuri j
+	join Jocuri_pc jpc on j.id_joc = jpc.id_joc
+	join Producator p on j.id_prod = p.id_prod
+	where j.rating > rating_min and jpc.gen in
+		(select gen
+		from (select gen, count(*) as count from jocuri_pc
+				group by gen
+				order by count desc
+				limit 3) count_gen)
+	group by jpc.gen, p.nume
+	having vanzari > 1000;
+END //
+
+DELIMITER ;

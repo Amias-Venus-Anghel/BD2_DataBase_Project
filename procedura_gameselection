@@ -1,0 +1,17 @@
+DELIMITER //
+
+CREATE PROCEDURE GameSelection(IN durata_max INT, IN nr_juc INT)
+BEGIN
+	select j.nume, p.nume as producator, jm.exemplare_disponibile
+	from jocuri j
+	join jocuri_masa jm on j.id_joc = jm.id_joc
+	join producator p on j.id_prod = p.id_prod
+	where jm.durata_joc < durata_max and jm.id_nr_jucatori in
+		(select id_nr_jucatori
+		from numar_jucatori
+		where min <= nr_juc and max >= nr_juc)
+	order by  j.rating
+	limit 10;
+END //
+
+DELIMITER ;
