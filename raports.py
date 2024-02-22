@@ -16,7 +16,7 @@ def call_stored_procedure(procedure_name):
         connection = mysql.connector.connect(
             host='127.0.0.1',
             user='root',
-            password='Daria1907<3',
+            password='password',
             database='bd2',
             port=3306
         )
